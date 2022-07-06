@@ -598,7 +598,7 @@ class KGUV920PARadio(chirp_common.CloneModeRadio,
             self._mmap = self._download()
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
         self.process_mmap()
 
@@ -615,7 +615,7 @@ class KGUV920PARadio(chirp_common.CloneModeRadio,
             return self._do_download(0, 0x6640, 0x40)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             LOG.exception('Unknown error during download process')
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
 
@@ -647,7 +647,7 @@ class KGUV920PARadio(chirp_common.CloneModeRadio,
             self._do_upload(0x0000, 0x6640, 0x40)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
         return
 

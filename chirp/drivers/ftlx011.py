@@ -364,7 +364,7 @@ class ftlx011(chirp_common.CloneModeRadio, chirp_common.ExperimentalRadio):
         """Do a download of the radio eeprom"""
         try:
             data = _do_download(self)
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio:\n %s" % e)
 
         # match model
@@ -392,7 +392,7 @@ class ftlx011(chirp_common.CloneModeRadio, chirp_common.ExperimentalRadio):
 
         try:
             _do_upload(self)
-        except Exception, e:
+        except( Exception, e ):
             msg = "Failed to communicate with radio:\n%s" % e
             raise errors.RadioError(msg)
 
@@ -735,7 +735,7 @@ class ftlx011(chirp_common.CloneModeRadio, chirp_common.ExperimentalRadio):
                     setattr(_settings, name, value)
 
                 LOG.debug("Setting %s: %s" % (name, value))
-            except Exception, e:
+            except( Exception, e ):
                 LOG.debug(element.get_name())
                 raise
 

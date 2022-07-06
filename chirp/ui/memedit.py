@@ -976,7 +976,7 @@ class MemoryEditor(common.Editor):
                 for i in col_order:
                     if i not in default_col_order:
                         raise Exception()
-        except Exception, e:
+        except( Exception, e ):
             LOG.error("column order setting: %s", e)
             col_order = default_col_order
 

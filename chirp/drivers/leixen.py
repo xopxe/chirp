@@ -226,8 +226,8 @@ PFKEYSHORT_LIST = ["OFF",
                    ]
 
 MODES = ["NFM", "FM"]
-WTFTONES = map(float, xrange(56, 64))
-TONES = WTFTONES + chirp_common.TONES
+WTFTONES = map(float, range(56, 64))
+TONES = list(WTFTONES) + chirp_common.TONES
 DTCS_CODES = [17, 50, 645] + chirp_common.DTCS_CODES
 DTCS_CODES.sort()
 TMODES = ["", "Tone", "DTCS", "DTCS"]
@@ -261,7 +261,7 @@ def send(radio, frame):
     #            util.hexprint(frame).replace("\n", "\n          ")))
     try:
         radio.pipe.write(frame)
-    except Exception, e:
+    except( Exception, e ):
         raise errors.RadioError("Failed to communicate with radio: %s" % e)
 
 
@@ -428,7 +428,7 @@ class LeixenVV898Radio(chirp_common.CloneModeRadio):
     def sync_in(self):
         try:
             self._mmap = do_download(self)
-        except Exception, e:
+        except( Exception, e ):
             finish(self)
             raise errors.RadioError("Failed to download from radio: %s" % e)
         self.process_mmap()
@@ -443,7 +443,7 @@ class LeixenVV898Radio(chirp_common.CloneModeRadio):
         except errors.RadioError:
             finish(self)
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to upload to radio: %s" % e)
 
     def get_raw_memory(self, number):
@@ -942,7 +942,7 @@ class LeixenVV898Radio(chirp_common.CloneModeRadio):
                     else:
                         LOG.debug("Setting %s = %s" % (setting, element.value))
                         setattr(obj, setting, element.value)
-                except Exception, e:
+                except( Exception, e ):
                     LOG.debug(element.get_name())
                     raise
 

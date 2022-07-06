@@ -634,7 +634,7 @@ class TYTTH9800Base(chirp_common.Radio):
 
                 LOG.debug("Setting %s(%s) <= %s" % (setting, oldval, newval))
                 setattr(_settings, setting, newval)
-            except Exception, e:
+            except( Exception, e ):
                 LOG.debug(element.get_name())
                 raise
 
@@ -827,7 +827,7 @@ class TYTTH9800Radio(TYTTH9800Base, chirp_common.CloneModeRadio,
     def sync_in(self):
         try:
             self._mmap = _download(self)
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError(
                     "Failed to communicate with the radio: %s" % e)
         self.process_mmap()
@@ -835,6 +835,6 @@ class TYTTH9800Radio(TYTTH9800Base, chirp_common.CloneModeRadio,
     def sync_out(self):
         try:
             _upload(self)
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError(
                     "Failed to communicate with the radio: %s" % e)

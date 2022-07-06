@@ -44,7 +44,7 @@ def decode_base100(u16):
 
 def drain(pipe):
     """Chew up any data waiting on @pipe"""
-    for x in xrange(3):
+    for x in range(3):
         buf = pipe.read(4096)
         if not buf:
             return
@@ -53,7 +53,7 @@ def drain(pipe):
 
 def enter_setup(pipe):
     """Put AP510 in configuration mode."""
-    for x in xrange(30):
+    for x in range(30):
         if x % 2:
             pipe.write("@SETUP")
         else:
@@ -84,7 +84,7 @@ def download(radio):
         radio.pipe.write("@DISP")
     buf = ""
 
-    for status.cur in xrange(status.cur, status.max):
+    for status.cur in range(status.cur, status.max):
         buf += radio.pipe.read(1024)
         if buf.endswith("\r\n"):
             status.cur = status.max
@@ -242,7 +242,7 @@ class AP510Memory(object):
 
 class AP510Memory20141215(AP510Memory):
     """Compatible with firmware version 20141215"""
-    ATTR_MAP = dict(AP510Memory.ATTR_MAP.items() + {
+    ATTR_MAP = dict(AP510Memory.ATTR_MAP.items() | {
         'tx_volume': '21',  # 1-6
         'rx_volume': '22',  # 1-9
         'tx_power': '23',  # 1: 1 watt,  0: 0.5 watt
@@ -380,7 +380,7 @@ class AP510Radio(chirp_common.CloneModeRadio):
             data = download(self)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
 
         # _mmap isn't a Chirp MemoryMap, but since AP510Memory implements
@@ -398,7 +398,7 @@ class AP510Radio(chirp_common.CloneModeRadio):
             upload(self)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
 
     def load_mmap(self, filename):

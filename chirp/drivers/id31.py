@@ -332,6 +332,6 @@ class ID31Radio(icf.IcomCloneModeRadio, chirp_common.IcomDstarSupport):
         return calls
 
 if __name__ == "__main__":
-    print repr(_decode_call(_encode_call("KD7REX B")))
-    print repr(_decode_call(_encode_call("       B")))
-    print repr(_decode_call(_encode_call("        ")))
+    print( repr(_decode_call(_encode_call("KD7REX B"))) )
+    print( repr(_decode_call(_encode_call("       B"))) )
+    print( repr(_decode_call(_encode_call("        "))) )

@@ -215,8 +215,8 @@ class FT817Radio(yaesu_clone.YaesuCloneModeRadio):
         #seekto 0x1979;
         struct mem_struct sixtymeterchannels[5];
     """
-    _CALLSIGN_CHARSET = [chr(x) for x in range(ord("0"), ord("9") + 1) +
-                         range(ord("A"), ord("Z") + 1) + [ord(" ")]]
+    _CALLSIGN_CHARSET = [chr(x) for x in [*range(ord("0"), ord("9") + 1), 
+                         *range(ord("A"), ord("Z") + 1)] + [ord(" ")]]
     _CALLSIGN_CHARSET_REV = dict(zip(_CALLSIGN_CHARSET,
                                      range(0, len(_CALLSIGN_CHARSET))))
 
@@ -413,7 +413,7 @@ class FT817Radio(yaesu_clone.YaesuCloneModeRadio):
             self._mmap = self._clone_in()
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
         self.process_mmap()
 
@@ -422,7 +422,7 @@ class FT817Radio(yaesu_clone.YaesuCloneModeRadio):
             self._clone_out()
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
 
     def process_mmap(self):

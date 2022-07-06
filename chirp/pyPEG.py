@@ -5,14 +5,13 @@
 import re
 import sys
 import codecs
-import exceptions
 
 
-class keyword(unicode):
+class keyword(str):
     pass
 
 
-class code(unicode):
+class code(str):
     pass
 
 
@@ -30,7 +29,7 @@ class _not(_and):
     pass
 
 
-class Name(unicode):
+class Name(str):
     def __init__(self, *args):
         self.line = 0
         self.file = u""
@@ -46,14 +45,14 @@ class Symbol(list):
     def __call__(self):
         return self.what
 
-    def __unicode__(self):
+    def __str__(self):
         return u'Symbol(' + repr(self.__name__) + ', ' + repr(self.what) + u')'
 
     def __repr__(self):
-        return unicode(self)
+        return str(self)
 
-word_regex = re.compile(ur"\w+")
-rest_regex = re.compile(ur".*")
+word_regex = re.compile(r"\w+")
+rest_regex = re.compile(r".*")
 
 print_trace = False
 
@@ -61,14 +60,14 @@ print_trace = False
 def u(text):
     if isinstance(text, exceptions.BaseException):
         text = text.args[0]
-    if type(text) is unicode:
+    if type(text) is str:
         return text
-    if isinstance(text, str):
+    if isinstance(text, bytes):
         if sys.stdin.encoding:
             return codecs.decode(text, sys.stdin.encoding)
         else:
             return codecs.decode(text, "utf-8")
-    return unicode(text)
+    return str(text)
 
 
 def skip(skipper, text, skipWS, skipComments):
@@ -188,7 +187,7 @@ class parser(object):
 
         pattern_type = type(pattern)
 
-        if pattern_type is str or pattern_type is unicode:
+        if pattern_type is bytes or pattern_type is str:
             if text[:len(pattern)] == pattern:
                 text = skip(self.skipper, text[len(pattern):],
                             skipWS, skipComments)
@@ -377,7 +376,7 @@ def parse(language, lineSource, skipWS=True, skipComments=None,
         if text:
             raise SyntaxError()
 
-    except SyntaxError, msg:
+    except( SyntaxError, msg ):
         parsed = textlen - p.restlen
         textlen = 0
         nn, lineNo, file = 0, 0, u""

@@ -181,7 +181,7 @@ class IC9xRadio(icf.IcomLiveRadio):
                 LOG.debug("Done: %s" % mem)
             except errors.InvalidMemoryLocation:
                 pass
-            except errors.InvalidDataError, e:
+            except( errors.InvalidDataError, e ):
                 LOG.error("Error talking to radio: %s" % e)
                 break
 
@@ -417,8 +417,8 @@ def _test():
     import serial
     ser = IC9xRadioB(serial.Serial(port="/dev/ttyUSB1",
                                    baudrate=38400, timeout=0.1))
-    print ser.get_urcall_list()
-    print "-- FOO --"
+    print( ser.get_urcall_list() )
+    print( "-- FOO --" )
     ser.set_urcall_list(["K7TAY", "FOOBAR", "BAZ"])
 
 

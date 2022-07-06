@@ -135,7 +135,7 @@ class TestWrapper:
         if self._make_reload:
             try:
                 self.open()
-            except Exception, e:
+            except( Exception, e ):
                 raise TestCrashError(get_tb(), e, "[Loading]")
 
         try:
@@ -145,7 +145,7 @@ class TestWrapper:
 
         try:
             ret = fn(*args, **kwargs)
-        except Exception, e:
+        except( Exception, e ):
             if type(e) in self._ignored_exceptions:
                 raise e
             details = str(args) + str(kwargs)
@@ -159,7 +159,7 @@ class TestWrapper:
         if self._make_reload:
             try:
                 self.close()
-            except Exception, e:
+            except( Exception, e ):
                 raise TestCrashError(get_tb(), e, "[Saving]")
 
         return ret
@@ -255,8 +255,8 @@ class TestCase:
                                                 in b.__dict__.items()])
                     raise TestFailedError(msg, details)
             except KeyError, e:
-                print sorted(a.__dict__.keys())
-                print sorted(b.__dict__.keys())
+                print( sorted(a.__dict__.keys()) )
+                print( sorted(b.__dict__.keys()) )
                 raise
 
 
@@ -300,7 +300,7 @@ class TestCaseCopyAll(TestCase):
                 failures.append(TestFailedError("<%i>: Import Failed: %s" %
                                                 (dst_number, e)))
                 continue
-            except Exception, e:
+            except( Exception, e ):
                 raise TestCrashError(get_tb(), e, "[Import]")
 
             self._wrapper.do("set_memory", dst_mem)
@@ -698,7 +698,7 @@ class TestCaseBanks(TestCase):
                 bank.set_name(testname)
             except AttributeError:
                 return [], []
-            except Exception, e:
+            except( Exception, e ):
                 if str(e) == "Not implemented":
                     return [], []
                 else:
@@ -863,7 +863,7 @@ class TestCaseDetect(TestCase):
 
         try:
             radio = directory.get_radio_by_image(filename)
-        except Exception, e:
+        except( Exception, e ):
             raise TestFailedError("Failed to detect", str(e))
 
         if radio.__class__.__name__ == 'DynamicRadioAlias':
@@ -930,7 +930,7 @@ class TestCaseClone(TestCase):
         try:
             radio = self._wrapper._dst.__class__(serial)
             radio.status_fn = lambda s: True
-        except Exception, e:
+        except( Exception, e ):
             error = e
 
         if not live:
@@ -946,7 +946,7 @@ class TestCaseClone(TestCase):
         error = None
         try:
             radio.sync_in()
-        except Exception, e:
+        except( Exception, e ):
             error = e
 
         if error is None:
@@ -965,7 +965,7 @@ class TestCaseClone(TestCase):
         error = None
         try:
             radio.sync_out()
-        except Exception, e:
+        except( Exception, e ):
             error = e
 
         if error is None:
@@ -1055,7 +1055,7 @@ class TestOutputHTML(TestOutput):
         self._filename = filename
 
     def prepare(self):
-        print "Writing to %s" % self._filename,
+        print( "Writing to %s" % self._filename ),
         sys.stdout.flush()
         self._out = file(self._filename, "w")
         s = """
@@ -1104,7 +1104,7 @@ td.SKIPPED {
     def cleanup(self):
         print >>self._out, "</table></body>"
         self._out.close()
-        print "Done"
+        print( "Done" )
 
     def report(self, rclass, tc, msg, e):
         s = ("<tr class='%s'>" % msg) + \
@@ -1294,7 +1294,7 @@ Available tests:
 
     if options.live:
         if not options.driver:
-            print "Live mode requires a driver to be specified"
+            print( "Live mode requires a driver to be specified" )
             sys.exit(1)
         failed = tr.run_one_live(options.driver, options.live)
     elif options.driver:

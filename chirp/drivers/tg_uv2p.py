@@ -119,7 +119,7 @@ def do_ident(radio):
     radio.pipe.timeout = 3
     radio.pipe.stopbits = serial.STOPBITS_TWO
     radio.pipe.write("\x02PnOGdAM")
-    for x in xrange(10):
+    for x in range(10):
         ack = radio.pipe.read(1)
         if ack == '\x06':
             break
@@ -264,7 +264,7 @@ class QuanshengTGUV2P(chirp_common.CloneModeRadio,
             self._mmap = do_download(self)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
         self.process_mmap()
 
@@ -273,7 +273,7 @@ class QuanshengTGUV2P(chirp_common.CloneModeRadio,
             do_upload(self)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
 
     def process_mmap(self):
@@ -683,7 +683,7 @@ class QuanshengTGUV2P(chirp_common.CloneModeRadio,
                     elif element.value.get_mutable():
                         LOG.debug("Setting %s = %s" % (setting, element.value))
                         setattr(obj, setting, element.value)
-                except Exception, e:
+                except( Exception, e ):
                     LOG.debug(element.get_name())
                     raise
 

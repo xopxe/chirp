@@ -18,7 +18,7 @@ import struct
 import logging
 from math import floor
 from chirp import chirp_common, directory, bitwise, memmap, errors, util
-from uvb5 import BaofengUVB5
+from chirp.drivers.uvb5 import BaofengUVB5
 
 LOG = logging.getLogger(__name__)
 
@@ -177,7 +177,7 @@ struct {
 def do_ident(radio):
     radio.pipe.timeout = 3
     radio.pipe.write("\x05TROGRAM")
-    for x in xrange(10):
+    for x in range(10):
         ack = radio.pipe.read(1)
         if ack == '\x06':
             break
@@ -304,7 +304,7 @@ class Th350Radio(BaofengUVB5):
             self._mmap = do_download(self)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
         self.process_mmap()
 
@@ -313,7 +313,7 @@ class Th350Radio(BaofengUVB5):
             do_upload(self)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
 
     def process_mmap(self):

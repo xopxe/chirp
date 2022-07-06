@@ -516,7 +516,7 @@ class ImportDialog(gtk.Dialog):
         except errors.InvalidMemoryLocation:
             LOG.error("Location %i empty or at limit of destination radio" %
                       number)
-        except errors.InvalidDataError, e:
+        except( errors.InvalidDataError, e ):
             LOG.error("Got error from radio, assuming %i beyond limits: %s" %
                       (number, e))
 
@@ -529,7 +529,7 @@ class ImportDialog(gtk.Dialog):
                 mem = self.src_radio.get_memory(i)
             except errors.InvalidMemoryLocation, e:
                 continue
-            except Exception, e:
+            except( Exception, e ):
                 self.__store.append(row=(False,
                                          i,
                                          i,
@@ -652,4 +652,4 @@ if __name__ == "__main__":
     d = ImportDialog(radio)
     d.run()
 
-    print d.get_import_list()
+    print( d.get_import_list() )

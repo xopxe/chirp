@@ -17,7 +17,7 @@
 
 import logging
 
-import icf
+import chirp.drivers.icf as icf
 import struct
 from chirp import chirp_common, bitwise, errors, directory
 from chirp.memmap import MemoryMap
@@ -596,7 +596,7 @@ class ICx90Radio(icf.IcomCloneModeRadio):
                 except AttributeError as e:
                     LOG.error("Setting %s is not in the memory map: %s" %
                               (element.get_name(), e))
-            except Exception, e:
+            except( Exception, e ):
                 LOG.debug(element.get_name())
                 raise
 

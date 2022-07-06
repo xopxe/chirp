@@ -38,7 +38,7 @@ def version_string():
 
 class VersionAction(argparse.Action):
     def __call__(self, parser, namespace, value, option_string=None):
-        print version_string()
+        print( version_string() )
         sys.exit(1)
 
 

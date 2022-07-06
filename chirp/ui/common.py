@@ -116,7 +116,7 @@ class RadioJob:
             result = func(*self.args, **self.kwargs)
         except errors.InvalidMemoryLocation, e:
             result = e
-        except Exception, e:
+        except( Exception, e ):
             LOG.error("Exception running RadioJob: %s" % e)
             log_exception()
             LOG.error("Job Args:   %s" % str(self.args))

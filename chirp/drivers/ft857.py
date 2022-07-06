@@ -314,8 +314,8 @@ class FT857Radio(ft817.FT817Radio):
 
     """
 
-    _CALLSIGN_CHARSET = [chr(x) for x in range(ord("0"), ord("9") + 1) +
-                         range(ord("A"), ord("Z") + 1)] + [" ", "/"]
+    _CALLSIGN_CHARSET = [chr(x) for x in [*range(ord("0"), ord("9") + 1), 
+                         *range(ord("A"), ord("Z") + 1)]] + [" ", "/"]
     _CALLSIGN_CHARSET_REV = dict(zip(_CALLSIGN_CHARSET,
                                  range(0, len(_CALLSIGN_CHARSET))))
     _BEACON_CHARSET = _CALLSIGN_CHARSET + ["+", "."]

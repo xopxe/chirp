@@ -14,7 +14,7 @@ def staticify_chirp_module():
         print >>init, "CHIRP_VERSION = \"%s\"" % CHIRP_VERSION
         print >>init, "__all__ = %s\n" % str(chirp.__all__)
 
-    print "Set chirp/__init__.py::__all__ = %s" % str(chirp.__all__)
+    print( "Set chirp/__init__.py::__all__ = %s" % str(chirp.__all__) )
 
 
 def staticify_drivers_module():
@@ -23,8 +23,8 @@ def staticify_drivers_module():
     with file("chirp/drivers/__init__.py", "w") as init:
         print >>init, "__all__ = %s\n" % str(chirp.drivers.__all__)
 
-    print "Set chirp/drivers/__init__.py::__all__ = %s" % str(
-        chirp.drivers.__all__)
+    print( "Set chirp/drivers/__init__.py::__all__ = %s" % str(
+        chirp.drivers.__all__) )
 
 
 def win32_build():
@@ -97,7 +97,7 @@ def macos_build():
 
     EXEC = 'bash ./build/macos/make_pango.sh ' + \
            '/opt/local dist/chirp-%s.app' % CHIRP_VERSION
-    # print "exec string: %s" % EXEC
+    # print( "exec string: %s" % EXEC )
     os.system(EXEC)
 
 
@@ -117,7 +117,7 @@ def default_build():
     for f in _locale_files:
         locale_files.append(("share/chirp/%s" % os.path.dirname(f), [f]))
 
-    print "LOC: %s" % str(locale_files)
+    print( "LOC: %s" % str(locale_files) )
 
     xsd_files = glob("chirp*.xsd")
 

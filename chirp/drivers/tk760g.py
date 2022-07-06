@@ -263,13 +263,13 @@ struct {
 
 MEM_SIZE = 0x8000  # 32,768 bytes
 BLOCK_SIZE = 256
-BLOCKS = MEM_SIZE / BLOCK_SIZE
+BLOCKS = MEM_SIZE // BLOCK_SIZE
 MEM_BLOCKS = range(0, BLOCKS)
 
 # define and empty block of data, as it will be used a lot in this code
 EMPTY_BLOCK = "\xFF" * 256
 
-RO_BLOCKS = range(0x10, 0x1F) + range(0x59, 0x5f)
+RO_BLOCKS = [*range(0x10, 0x1F), range(0x59, 0x5f)]
 ACK_CMD = "\x06"
 
 POWER_LEVELS = [chirp_common.PowerLevel("Low", watts=1),
@@ -908,7 +908,7 @@ class Kenwood_Serie_60G(chirp_common.CloneModeRadio, chirp_common.ExperimentalRa
             do_upload(self)
         except errors.RadioError:
             raise
-        except Exception, e:
+        except( Exception, e ):
             raise errors.RadioError("Failed to communicate with radio: %s" % e)
 
     def process_mmap(self):

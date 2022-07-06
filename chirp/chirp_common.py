@@ -976,7 +976,7 @@ class RadioFeatures:
                     msg = ValidationError("Frequency requires %.2fkHz step" %
                                           required_step(mem.freq))
                     msgs.append(msg)
-            except errors.InvalidDataError, e:
+            except( errors.InvalidDataError, e ):
                 msgs.append(str(e))
 
         if self.valid_characters:
@@ -1564,7 +1564,7 @@ def sanitize_string(astring, validcharset=CHARSET_ASCII, replacechar='*'):
     myfilter = ''.join(
         [
             [replacechar, chr(x)][chr(x) in validcharset]
-            for x in xrange(256)
+            for x in range(256)
         ])
     return astring.translate(myfilter)
 
